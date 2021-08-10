@@ -1,5 +1,5 @@
 module.exports = function toReadable (number) {
-    let list = {
+    const list = {
         0 : 'zero' ,
         1 : 'one' , 
         2 : 'two' ,
@@ -30,35 +30,36 @@ module.exports = function toReadable (number) {
         90 : 'ninety' ,
     } ;   
 
-    if ((number >= 0) && (number <= 20)) { return list[number] ; }
-    else if ((number > 20) && (number < 100)) {
-        let decade = (Math.floor(number / 10)) * 10 ;
+    if ((number >= 0) && (number <= 20)) { return list[number]; }
+    
+    if ((number > 20) && (number < 100)) {
+        let decade = (Math.floor(number / 10)) * 10;
         let unit = number % 10 ;
 
-        if (unit == 0) { return list[decade] ; }
-        else { return list[decade] + ' ' + list[unit] ; }
-    }
-    else {
-        let hundreed = Math.floor(number / 100) ;
-        let decade = (Math.floor((number % 100) / 10)) * 10 ;
-        let unit = (number % 100) % 10 ;
+        if (unit === 0) { return list[decade]; }
+        else { return list[decade] + ' ' + list[unit]; }
+    } else {
+        let hundreed = Math.floor(number / 100);
+        let decade = (Math.floor((number % 100) / 10)) * 10;
+        let unit = (number % 100) % 10;
 
-        if (unit == 0) { 
-            if (decade == 0) {
-                return list[hundreed] + ' hundreed' ;
-            }
-            else {
-                return list[hundreed] + ' hundreed ' + list[decade] ; 
+        if (unit === 0) { 
+            if (decade === 0) {
+                return list[hundreed] + ' hundred';
+          } else {
+                return list[hundreed] + ' hundred ' + list[decade]; 
             }            
         }
-        else if (decade < 10) {
-            return list[hundreed] + ' hundreed ' + list[unit] ;
-        }
-        else {
-            return list[hundreed] + ' hundreed ' + list[decade] + ' ' + list[unit] ;
-        }
-        
 
-    }
-  
+        else if (decade < 10) {
+            return list[hundreed] + ' hundred ' + list[unit];
+        }
+
+        else if (decade == 10) {
+            let num = number % 100;
+            return list[hundreed] + ' hundred ' + list[num];        
+        } else {
+            return list[hundreed] + ' hundred ' + list[decade] + ' ' + list[unit];
+        }      
+    }  
 }
