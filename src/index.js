@@ -44,7 +44,15 @@ module.exports = function toReadable (number) {
         let unit = (number % 100) % 10 ;
 
         if (unit == 0) { 
-            return list[hundreed] + ' hundreed ' + list[decade] ; 
+            if (decade == 0) {
+                return list[hundreed] + ' hundreed' ;
+            }
+            else {
+                return list[hundreed] + ' hundreed ' + list[decade] ; 
+            }            
+        }
+        else if (decade < 10) {
+            return list[hundreed] + ' hundreed ' + list[unit] ;
         }
         else {
             return list[hundreed] + ' hundreed ' + list[decade] + ' ' + list[unit] ;
